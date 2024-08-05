@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}Producer {{ producer.producer_name }}{% endblock %}
+
+{% block title %}Producer {{ producer.producer_name }}{% endblock %}
+
+
+{% block body %}
+    <ul>
+        <li>
+            <h2>{{ producer.producer_name }}</h2>
+            <img src="{{ producer.logo.url }}" alt="{{ producer.producer_name }}" height="150">
+            <h4>Rating: {{ producer.rate }}</h4>
+            <h4>Description: {{ producer.description }}</h4>
+
+        </li>
+    </ul>
+
+    <br>
+    <br>
+    <br>
+
+    <ul>
+        <li>
+
+            <section id="pizzas">
+
+                {% for pizza in pizzas %}
+                    <h2>{{ producer.producer_name }}'s Pizzas</h2>
+
+                    <ul>
+                        <li>
+                            <h3>{{ pizza.title }}</h3>
+                            <img src="{{ pizza.image.url }}" alt="{{ pizza.title }}" height="100">
+                            <p>Price: ${{ pizza.price }}</p>
+                            <p>Thickness: {{ pizza.thick_type}}</p>
+                            <p>Rating: {{ pizza.rate }}</p>
+                            <a href="{% url 'pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                        </li>
+                    </ul>
+
+                {% endfor %}
+            </section>
+        </li>
+    </ul>
+
+{% endblock %}

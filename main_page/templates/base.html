@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}Delicious Pizza{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main_page/base.css' %}">
+</head>
+<body>
+    <header>
+        <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+        <h1>{% block title %}Delicious Pizza{% endblock %}</h1>
+    </header>
+
+    <aside id="side-panel" class="closed">
+        <nav>
+            <ul>
+                <li><a href="{% url 'test' %}">All Pizzas</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'producers' %}">Producers</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        {% block body %}{% endblock %}
+
+    </main>
+
+
+    <footer>
+        <p>&copy; 2024 Delicious Pizza. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const sidePanel = document.getElementById('side-panel');
+            if (sidePanel.classList.contains('closed')) {
+                sidePanel.classList.remove('closed');
+                sidePanel.classList.add('open');
+            } else {
+                sidePanel.classList.remove('open');
+                sidePanel.classList.add('closed');
+            }
+        }
+    </script>
+</body>
+</html>

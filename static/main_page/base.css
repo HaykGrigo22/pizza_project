@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+header {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.menu-btn {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+aside {
+    width: 200px;
+    background-color: #ffebcd;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom: 50px;
+    overflow: auto;
+    transition: transform 0.3s ease;
+    z-index: 900;
+}
+
+aside.closed {
+    transform: translateX(-220px);
+}
+
+aside.open {
+    transform: translateX(0);
+}
+
+aside nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside nav ul li {
+    margin: 15px 0;
+}
+
+aside nav ul li a {
+    color: #ff6347;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main {
+    margin-left: 220px;
+    padding: 70px 20px 70px 20px;
+    transition: margin-left 0.3s ease;
+}
+
+aside.closed + main {
+    margin-left: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+    margin-bottom: 20px;
+}
+
+section img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #ff6347;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#pizzas ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#pizzas ul li {
+    background-color: #ffebcd;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+#pizzas ul li h3 {
+    margin: 0 0 10px 0;
+}
+
+.details-btn {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#pizzas ul li img {
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

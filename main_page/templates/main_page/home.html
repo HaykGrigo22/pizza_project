@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <section id="pizzas">
+        <h2>Our Menu</h2>
+        {% for pizza in pizzas %}
+            <ul>
+                <li>
+                    <h3>{{ pizza.title }}</h3>
+                    <img src="{{ pizza.image.url }}" alt="{{ pizza.title }}">
+                    <p>Price: ${{ pizza.price }}</p>
+                    <p>Thickness: {{ pizza.thick_type}}</p>
+                    <p>Rating: {{ pizza.rate }}</p>
+                    <a href="{% url 'pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                </li>
+            </ul>
+        {% endfor %}
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Delicious Pizza has been serving the community with mouth-watering pizzas for over 20 years. Our secret recipe has been passed down through generations.</p>
+        </section>
+
+        <section id="producer">
+            <h2>Producer</h2>
+            <p>Our pizzas are crafted by the finest chefs using the best ingredients sourced from local farmers.</p>
+        </section>
+    </section>
+
+{% endblock %}

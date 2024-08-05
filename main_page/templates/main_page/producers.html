@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}Producers{% endblock %}
+
+{% block title %}Producers{% endblock %}
+
+
+{% block body %}
+    <section id="pizzas">
+        {% for producer in producers %}
+            <ul>
+                <li>
+                    <h3>{{ producer.producer_name }}</h3>
+                    <img src="{{ producer.logo.url }}" alt="{{ producer.producer_name }}">
+                    <p>Rating: {{ producer.rate }}</p>
+                    <a href="{% url 'producer_detail' producer.pk %}"><button class="details-btn">Details</button></a>
+                </li>
+            </ul>
+        {% endfor %}
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Delicious Pizza has been serving the community with mouth-watering pizzas for over 20 years. Our secret recipe has been passed down through generations.</p>
+        </section>
+
+        <section id="producer">
+            <h2>Producer</h2>
+            <p>Our pizzas are crafted by the finest chefs using the best ingredients sourced from local farmers.</p>
+        </section>
+    </section>
+
+{% endblock %}
