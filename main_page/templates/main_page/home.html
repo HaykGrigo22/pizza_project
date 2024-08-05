@@ -9,6 +9,7 @@
                     <h3>{{ pizza.title }}</h3>
                     <img src="{{ pizza.image.url }}" alt="{{ pizza.title }}">
                     <p>Price: ${{ pizza.price }}</p>
+                    <p>Producer: {{ pizza.producer }}</p>
                     <p>Thickness: {{ pizza.thick_type}}</p>
                     <p>Rating: {{ pizza.rate }}</p>
                     <a href="{% url 'pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
