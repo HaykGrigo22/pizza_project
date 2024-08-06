@@ -22,7 +22,7 @@ class Producers(models.Model):
 class Pizzas(models.Model):
     title = models.CharField(max_length=50)
     producer = models.ForeignKey(Producers, on_delete=models.CASCADE, null=True, blank=True)
-    price = models.FloatField(validators=[valid_price])
+    price = models.PositiveIntegerField(validators=[valid_price])
     description = models.TextField()
     rate = models.CharField(max_length=155, choices=RateChoice.choices, default="6.0")
     thick_type = models.CharField(max_length=155, choices=ThickTypeChoice.choices, default="classic")

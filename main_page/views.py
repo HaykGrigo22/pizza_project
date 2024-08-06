@@ -14,11 +14,6 @@ def pizza_detail(requests, pk):
     return render(requests, "main_page/pizza_detail.html", ctx)
 
 
-def test(requests):
-    all_pizzas = Pizzas.objects.all()
-    return render(requests, "main_page/test.html", {"pizzas": all_pizzas})
-
-
 def about(requests):
     return render(requests, "main_page/about.html")
 

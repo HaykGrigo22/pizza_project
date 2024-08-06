@@ -1,6 +1,6 @@
 
 def valid_price(price):
-    if 0 < price:
+    if price < 100:
         return price
     raise ValueError("[ERROR]The invalid price!!!")
 
