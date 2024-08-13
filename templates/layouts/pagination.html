@@ -1,0 +1,41 @@
+<style>
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+    }
+
+    .pagination a.active {
+        background-color: #FD4A2A;
+        color: white;
+        border: 1px solid #FD4A2A;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+</style>
+
+<div class="container">
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif  %}
+        {% if page_obj.paginator.num_pages > 1 %}
+        <a href="#" class="active">{{  page_obj.number }}</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+    {% endif %}
+    </div>
+</div>

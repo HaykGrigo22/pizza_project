@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Burgers{% endblock %}
+
+{% block title %}Delicious Burgers{% endblock %}
+
+{% block body %}
+
+  <section id="burgers">
+        <h2>Our Menu</h2>
+        {% for burger in burgers %}
+            <ul>
+                <li>
+                    <h3>{{ burger.title }}</h3>
+                    <img src="{{ burger.image.url }}" alt="{{ burger.title }}" height="100">
+                    <p>Price: ${{ burger.price }}</p>
+                    <p>Weight: {{ burger.weight }}</p>
+                    <p>Rating: {{ burger.rate }}</p>
+                    <a href="{% url 'burger:burger_detail' burger.pk %}"><button class="details-btn">Details</button></a>
+                </li>
+            </ul>
+        {% endfor %}
+    </section>
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}{{ burger.title }} Burger{% endblock %}
+
+{% block title %}{{ burger.title }} Burger{% endblock %}
+
+
+{% block body %}
+    <ul>
+        <li>
+            <h2>{{ burger.title }}</h2>
+            <img src="{{ burger.image.url }}" alt="{{ burger.title }}" height="150">
+            <h4>Price: ${{ burger.price }}</h4>
+            <h4>Producer: {{ burger.producer }}</h4>
+            <h4>Thickness: {{ burger.thick_type }}</h4>
+            <h4>Rating: {{ burger.rate }}</h4>
+            <h4>Description: {{ burger.description }}</h4>
+
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <br>
+            <br>
+            <br>
+            {% if similar_burger %}
+
+                <h1>Similar Burgers</h1>
+                <br>
+                {% for similar_burger in similar %}
+
+                    <h2>{{ similar_burger.name }}</h2>
+                    <img src="{{ similar_burger.image.url }}" alt="{{ similar_burger.title }}" height="150">
+                    <h4>Price: ${{ similar_burger.price }}</h4>
+                    <h4>Producer: {{ similar_burger.producer }}</h4>
+                    <h4>Thickness: {{ similar_burger.thick_type }}</h4>
+                    <h4>Rating: {{ similar_burger.rate }}</h4>
+                    <a href="{% url 'burger:burger_detail' similar_burger.pk %}"><button class="details-btn">Details</button></a>
+
+                {% endfor %}
+            {% endif %}
+        </li>
+    </ul>
+
+
+{% endblock %}

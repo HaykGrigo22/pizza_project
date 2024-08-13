@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from helpers.choices import ThickTypeChoice, RateChoice
 from helpers.validators import valid_price
@@ -11,6 +12,9 @@ class Producers(models.Model):
     rate = models.CharField(max_length=155, choices=RateChoice.choices)
     logo = models.ImageField(upload_to=upload_producer_logo_image, null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse("producer", kwargs={"pk": self.pk})
+
     def __str__(self):
         return self.producer_name
 
@@ -21,7 +25,7 @@ class Producers(models.Model):
 
 class Pizzas(models.Model):
     title = models.CharField(max_length=50)
-    producer = models.ForeignKey(Producers, on_delete=models.CASCADE, null=True, blank=True)
+    producer = models.ForeignKey(Producers, on_delete=models.CASCADE, null=True, blank=True, related_name="pizzas")
     price = models.PositiveIntegerField(validators=[valid_price])
     description = models.TextField()
     rate = models.CharField(max_length=155, choices=RateChoice.choices, default="6.0")

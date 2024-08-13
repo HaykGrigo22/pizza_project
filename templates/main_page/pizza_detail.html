@@ -20,4 +20,27 @@
         </li>
     </ul>
 
+    <ul>
+        <li>
+            <br>
+            <br>
+            <br>
+
+            <h1>Similar Pizzas</h1>
+            <br>
+            {% for similar_pizza in similar %}
+
+                <h2>{{ similar_pizza.title }}</h2>
+                <img src="{{ similar_pizza.image.url }}" alt="{{ similar_pizza.title }}" height="150">
+                <h4>Price: ${{ similar_pizza.price }}</h4>
+                <h4>Producer: {{ similar_pizza.producer }}</h4>
+                <h4>Thickness: {{ similar_pizza.thick_type }}</h4>
+                <h4>Rating: {{ similar_pizza.rate }}</h4>
+                <a href="{% url 'main_page:pizza_detail' similar_pizza.pk %}"><button class="details-btn">Details</button></a>
+
+            {% endfor %}
+        </li>
+    </ul>
+
+
 {% endblock %}

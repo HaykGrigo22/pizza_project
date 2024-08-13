@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 
 {% block page_title %}Producer {{ producer.producer_name }}{% endblock %}
 
 {% block title %}Producer {{ producer.producer_name }}{% endblock %}
 
-
 {% block body %}
+
+    <link rel="stylesheet" href="{% static 'main_page/producer_detail.css' %}">
+
     <ul>
         <li>
             <h2>{{ producer.producer_name }}</h2>
             <img src="{{ producer.logo.url }}" alt="{{ producer.producer_name }}" height="150">
             <h4>Rating: {{ producer.rate }}</h4>
             <h4>Description: {{ producer.description }}</h4>
-
         </li>
     </ul>
 
@@ -21,28 +24,47 @@
     <br>
     <br>
 
+    <div class="product-buttons">
+        <a href="?product_type=pizza"><button class="product-btn">Pizza</button></a>
+        <a href="?product_type=burger"><button class="product-btn">Burger</button></a>
+    </div>
+
     <ul>
         <li>
+            {% if request.GET.product_type == "burger" %}
+            <section id="burgers">
+                <h2>{{ producer.producer_name }}'s Burgers</h2>
 
+                {% for burger in burgers %}
+                    <ul>
+                        <li>
+                            <h3>{{ burger.title }}</h3>
+                            <img src="{{ burger.image.url }}" alt="{{ burger.title }}" height="100">
+                            <p>Price: ${{ burger.price }}</p>
+                            <p>Weight: {{ burger.weight }}</p>
+                            <p>Rating: {{ burger.rate }}</p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </section>
+            {% else %}
             <section id="pizzas">
-
                 <h2>{{ producer.producer_name }}'s Pizzas</h2>
 
                 {% for pizza in pizzas %}
-
                     <ul>
                         <li>
                             <h3>{{ pizza.title }}</h3>
                             <img src="{{ pizza.image.url }}" alt="{{ pizza.title }}" height="100">
                             <p>Price: ${{ pizza.price }}</p>
-                            <p>Thickness: {{ pizza.thick_type}}</p>
+                            <p>Thickness: {{ pizza.thick_type }}</p>
                             <p>Rating: {{ pizza.rate }}</p>
-                            <a href="{% url 'pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                            <a href="{% url 'main_page:pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
                         </li>
                     </ul>
-
                 {% endfor %}
             </section>
+            {% endif %}
         </li>
     </ul>
 

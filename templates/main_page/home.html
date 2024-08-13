@@ -12,7 +12,7 @@
                     <p>Producer: {{ pizza.producer }}</p>
                     <p>Thickness: {{ pizza.thick_type}}</p>
                     <p>Rating: {{ pizza.rate }}</p>
-                    <a href="{% url 'pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                    <a href="{% url 'main_page:pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
                 </li>
             </ul>
         {% endfor %}
@@ -26,5 +26,8 @@
             <p>Our pizzas are crafted by the finest chefs using the best ingredients sourced from local farmers.</p>
         </section>
     </section>
+    {% include 'layouts/pagination.html' with page_obj=pizzas %}
+
 
 {% endblock %}
+

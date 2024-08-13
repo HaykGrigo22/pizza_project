@@ -1,0 +1,103 @@
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    color: #222;
+}
+
+main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Product buttons styling */
+.product-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.product-btn {
+    background-color: #fa5128;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    margin: 0 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+.product-btn:hover {
+    background-color: #e32d00;
+}
+
+/* Search bars styling */
+#search-bars, #search-bars2 {
+    margin: 30px 0;
+}
+
+#search-bars form, #search-bars2 form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#search-bars input, #search-bars2 input {
+    flex: 1 1 220px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+#search-bars .btn, #search-bars2 .btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #fa5128;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#search-bars .btn:hover, #search-bars2 .btn:hover {
+    background-color: #e32d00;
+}
+
+
+.details-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #fa5128;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.details-btn:hover {
+    background-color: #f5542c;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #search-bars input, #search-bars2 input {
+        flex: 1 1 100%;
+    }
+
+    #pizzas li, #burgers li {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #pizzas img, #burgers img {
+        margin: 0 auto 10px;
+    }
+}
