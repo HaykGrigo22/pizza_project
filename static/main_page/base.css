@@ -107,13 +107,15 @@ footer {
     z-index: 1000;
 }
 
-#pizzas ul {
+#pizzas ul,
+#burgers ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-#pizzas ul li {
+#pizzas ul li,
+#burgers ul li {
     background-color: #ffebcd;
     margin: 15px 0;
     padding: 10px;
@@ -121,7 +123,8 @@ footer {
     text-align: left;
 }
 
-#pizzas ul li h3 {
+#pizzas ul li h3,
+#burgers ul li h3 {
     margin: 0 0 10px 0;
 }
 
@@ -135,7 +138,8 @@ footer {
     font-size: 16px;
 }
 
-#pizzas ul li img {
+#pizzas ul li img,
+#burgers ul li img {
     width: 300px;
     height: auto;
     border-radius: 5px;

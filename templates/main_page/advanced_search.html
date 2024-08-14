@@ -11,120 +11,73 @@
 {% block body %}
     <link rel="stylesheet" href="{% static 'main_page/advanced_search.css' %}">
     <br><br>
-    <div class="product-buttons">
-        <a href="?product_type=pizza"><button class="product-btn">Pizza</button></a>
-        <a href="?product_type=burger"><button class="product-btn">Burger</button></a>
-    </div>
-
-    {% if request.GET.product_type|default:"pizza" == "pizza" %}
 
         <main>
             <section id="search-bars">
                 <form class="d-flex mt-3" role="search" method="get" action="{% url 'main_page:advanced_search' %}">
-                      <input class="form-control me-2" name="name" type="search" placeholder="Pizza name" aria-label="Search">
+                <select name="product_type" class="form-control me-2">
+                    <option value="pizza">Pizza</option>
+                    <option value="burger">Burger</option>
+                </select>
+                      <input class="form-control me-2" name="name" type="search" placeholder="name" aria-label="Search">
 
-                      <input class="form-control me-2" name="producer" type="search" placeholder="Pizza producer" aria-label="Search">
+                      <input class="form-control me-2" name="producer" type="search" placeholder="producer" aria-label="Search">
 
-                      <input class="form-control me-2" name="min_price" type="search" placeholder="Min price" aria-label="Search">
+                      <input class="form-control me-2" name="min_price" type="search" placeholder="min price" aria-label="Search">
 
-                      <input class="form-control me-2" name="max_price" type="search" placeholder="Max price" aria-label="Search">
+                      <input class="form-control me-2" name="max_price" type="search" placeholder="max price" aria-label="Search">
 
-                      <input class="form-control me-2" name="description" type="search" placeholder="Pizza description" aria-label="Search">
-
-                      <input class="form-control me-2" name="thickness" type="search" placeholder="Pizza thick type" aria-label="Search">
-
+                      <input class="form-control me-2" name="description" type="search" placeholder="description" aria-label="Search">
+                      {% if not request.GET.product_type == "burger" %}
+                        <input class="form-control me-2" name="pizza_thickness" type="search" placeholder="Pizza thick type" aria-label="Search">
+                      {% endif %}
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </section>
         </main>
 
-        <br>
-        <br>
-        <br>
-        {% if pizzas %}
-
+    {% if pizzas or burgers %}
         <section id="pizzas">
             <h2>Search Results</h2>
-            {% for pizza in pizzas %}
-                <ul>
-                    <li>
-                        <h3>{{ pizza.title }}</h3>
-                        <img src="{{ pizza.image.url }}" alt="{{ pizza.title }}">
-                        <p>Price: ${{ pizza.price }}</p>
-                        <p>Producer: {{ pizza.producer }}</p>
-                        <p>Thickness: {{ pizza.thick_type}}</p>
-                        <p>Rating: {{ pizza.rate }}</p>
-                        <a href="{% url 'main_page:pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
-                    </li>
-                </ul>
-            {% endfor %}
+            {% if pizzas %}
+            <ul>
+                {% for pizza in pizzas %}
+                <li>
+                    <h3>{{ pizza.title }}</h3>
+                    <img src="{{ pizza.image.url }}" alt="{{ pizza.title }}">
+                    <p>Price: ${{ pizza.price }}</p>
+                    <p>Producer: {{ pizza.producer }}</p>
+                    <p>Thickness: {{ pizza.thick_type }}</p>
+                    <p>Rating: {{ pizza.rate }}</p>
+                    <a href="{% url 'main_page:pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                </li>
+                {% endfor %}
+            </ul>
         </section>
 
-        {% else %}
-            <h2>Nothing found</h2>
+        <br>
 
-        {% endif %}
+            {% endif %}
+
+            {% if burgers %}
+            <section id="burgers">
+                <ul>
+                    {% for burger in burgers %}
+                    <li>
+                        <h3>{{ burger.title }}</h3>
+                        <img src="{{ burger.image.url }}" alt="{{ burger.title }}">
+                        <p>Price: ${{ burger.price }}</p>
+                        <p>Producer: {{ burger.producer }}</p>
+                        <p>Rating: {{ burger.rate }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
 
     {% else %}
-        <main>
-            <section id="search-bars2">
-                <form class="d-flex mt-3" role="search" method="get" action="{% url 'burger:advanced_search' %}">
-                      <input class="form-control me-2" name="name" type="search" placeholder="Burger name" aria-label="Search">
-
-                      <input class="form-control me-2" name="producer" type="search" placeholder="Burger producer" aria-label="Search">
-
-                      <input class="form-control me-2" name="min_price" type="search" placeholder="Min price" aria-label="Search">
-
-                      <input class="form-control me-2" name="max_price" type="search" placeholder="Max price" aria-label="Search">
-
-                      <input class="form-control me-2" name="description" type="search" placeholder="Burger description" aria-label="Search">
-
-                    <button class="btn btn-success" type="submit">Search</button>
-                </form>
-            </section>
-        </main>
-
-        <br>
-        <br>
-        <br>
-        {% if burgers %}
-
-        <section id="search_burgers">
-            <h2>Search Results</h2>
-            {% for burger in burgers %}
-                <ul>
-                    <li>
-                        <h3>{{ burgers.title }}</h3>
-                        <img src="{{ burgers.image.url }}" alt="{{ burgers.title }}">
-                        <p>Price: ${{ burgers.price }}</p>
-                        <p>Producer: {{ burgers.producer }}</p>
-                        <p>Rating: {{ burgers.rate }}</p>
-                        <a href="{% url 'burger:burger_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
-                    </li>
-                </ul>
-            {% endfor %}
-        </section>
-
-        {% else %}
-            <section id="burgers">
-            <h2>Search Results</h2>
-            {% for burger in burgers %}
-                <ul>
-                    <li>
-                        <h3>{{ burgers.title }}</h3>
-                        <img src="{{ burgers.image.url }}" alt="{{ burgers.title }}">
-                        <p>Price: ${{ burgers.price }}</p>
-                        <p>Producer: {{ burgers.producer }}</p>
-                        <p>Rating: {{ burgers.rate }}</p>
-                        <a href="{% url 'burger:burger_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
-                    </li>
-                </ul>
-            {% endfor %}
-        </section>
-
-        {% endif %}
-
-
+        <h2>Nothing found</h2>
     {% endif %}
+    <br><br>
 
 {% endblock %}

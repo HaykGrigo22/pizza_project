@@ -17,6 +17,7 @@ def home(request):
 
 def pizza_detail(request, pk):
     pizza = get_object_or_404(Pizzas, pk=pk)
+
     similar_pizzas = Pizzas.objects.filter(
         (
             Q(price__gte=pizza.price - 5) & Q(price__lte=pizza.price + 5)
@@ -24,7 +25,12 @@ def pizza_detail(request, pk):
         )
     ).exclude(id=pizza.id)
 
-    ctx = {"pizza": pizza, "similar": similar_pizzas}
+    paginator = Paginator(similar_pizzas, 1)
+
+    page_number = request.GET.get("page")
+    sim_pizzas = paginator.get_page(page_number)
+
+    ctx = {"pizza": pizza, "similar": sim_pizzas}
     return render(request, "main_page/pizza_detail.html", ctx)
 
 
@@ -59,33 +65,43 @@ def search(request):
 
 
 def advanced_search(request):
+    product_type = request.GET.get('product_type', 'pizza')
+    name = request.GET.get("name")
+    producer = request.GET.get("producer")
+    min_price = request.GET.get("min_price")
+    max_price = request.GET.get("max_price")
+    description = request.GET.get("description")
+    thickness = request.GET.get("thickness") if product_type == 'pizza' else None
+
     pizzas = Pizzas.objects.all()
+    burgers = Burger.objects.all()
 
-    if request.GET:
-        name = request.GET.get("name")
-        producer = request.GET.get("producer")
-        min_price = request.GET.get("min_price")
-        max_price = request.GET.get("max_price")
-        description = request.GET.get("description")
-        thickness = request.GET.get("thickness")
+    ctx = {}
+    search_list = []
 
-        search_list = []
+    if name:
+        search_list.append(Q(title__icontains=name))
+    if producer:
+        search_list.append(Q(producer__icontains=producer))
+    if min_price:
+        search_list.append(Q(price__gte=min_price))
+    if max_price:
+        search_list.append(Q(price__lte=max_price))
+    if description:
+        search_list.append(Q(description__icontains=description))
 
-        if name:
-            search_list.append(Q(title__icontains=name))
-        if producer:
-            search_list.append(Q(producer=producer))
-        if min_price:
-            search_list.append(Q(price__gte=min_price))
-        if max_price:
-            search_list.append(Q(price__lte=max_price))
-        if description:
-            search_list.append(Q(description__icontains=description))
+    if product_type == 'pizza':
         if thickness:
             search_list.append(Q(thick_type__icontains=thickness))
-
         for condition in search_list:
-            pizzas &= Pizzas.objects.filter(condition)
+            pizzas = pizzas.filter(condition)
 
+        ctx = {"pizzas": pizzas}
 
-    return render(request, "main_page/advanced_search.html", {"pizzas": pizzas})
+    elif product_type == 'burger':
+        for condition in search_list:
+            burgers = burgers.filter(condition)
+
+        ctx = {"burgers": burgers}
+
+    return render(request, "main_page/advanced_search.html", ctx)

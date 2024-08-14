@@ -25,8 +25,8 @@
     <br>
 
     <div class="product-buttons">
-        <a href="?product_type=pizza"><button class="product-btn">Pizza</button></a>
-        <a href="?product_type=burger"><button class="product-btn">Burger</button></a>
+        <a href="?product_type=pizza"><button class="product-btn">Pizza ({{ pizzas.count }})</button></a>
+        <a href="?product_type=burger"><button class="product-btn">Burger ({{ burgers.count }})</button></a>
     </div>
 
     <ul>
@@ -43,6 +43,8 @@
                             <p>Price: ${{ burger.price }}</p>
                             <p>Weight: {{ burger.weight }}</p>
                             <p>Rating: {{ burger.rate }}</p>
+                            <a href="{% url 'burger:burger_detail' burger.pk %}"><button class="details-btn">Details</button></a>
+
                         </li>
                     </ul>
                 {% endfor %}
