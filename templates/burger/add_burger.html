@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Add Your Burger{% endblock %}
+
+{% block title %}Add Your Burger{% endblock %}
+
+
+{% block body %}
+
+<form action="{% url 'burger:add_burger' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for f in form %}
+        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+        <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+    <button type="submit">Add</button>
+
+
+</form>
+
+{% endblock %}

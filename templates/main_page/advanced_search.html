@@ -69,6 +69,7 @@
                         <p>Price: ${{ burger.price }}</p>
                         <p>Producer: {{ burger.producer }}</p>
                         <p>Rating: {{ burger.rate }}</p>
+                        <a href="{% url 'burger:burger_detail' burger.pk %}"><button class="details-btn">Details</button></a>
                     </li>
                     {% endfor %}
                 </ul>

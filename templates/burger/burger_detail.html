@@ -7,6 +7,8 @@
 
 
 {% block body %}
+
+
     <ul>
         <li>
             <h2>{{ burger.title }}</h2>
@@ -18,7 +20,12 @@
             <h4>Description: {{ burger.description }}</h4>
 
         </li>
+        <li>
+            <a href="{% url 'burger:delete_burger' burger.pk  %}"><button class="btn btn-success">Delete Burger</button></a>
+            <a href="{% url 'burger:update_burger' burger.pk  %}"><button class="btn btn-success">Update Burger</button></a>
+        </li>
     </ul>
+
 
     <ul>
         <li>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}Delete Burger{% endblock %}
+
+{% block title %}Delete Burger {{ burger }}{% endblock %}
+
+
+{% block body %}
+    <h2>Are you sure you want to delete burger - {{ burger }}</h2>
+    <a href="{% url 'burger:burgers' %}"><button class="btn btn-success">No, Go Back</button></a>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-success" type="submit">Delete</button>
+</form>
+
+
+{% endblock %}
