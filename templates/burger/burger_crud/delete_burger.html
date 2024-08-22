@@ -8,10 +8,12 @@
 
 {% block body %}
     <h2>Are you sure you want to delete burger - {{ burger }}</h2>
-    <a href="{% url 'burger:burgers' %}"><button class="btn btn-success">No, Go Back</button></a>
+    <a href="{% url 'burger:burgers' %}"><button class="details-btn">No, Go Back</button></a>
+
 <form method="post">
     {% csrf_token %}
-    <button class="btn btn-success" type="submit">Delete</button>
+    <br>
+    <button class="details-btn" type="submit">Delete</button>
 </form>
 
 

@@ -22,10 +22,10 @@
                 <li><a href="{% url 'main_page:advanced_search' %}">Advanced Search</a></li>
                 <li><a href="{% url 'main_page:about' %}">About Us</a></li>
             </ul>
-            <div class="search-bar">
+            <div class="search-bars">
                 <form class="d-flex mt-3" role="search" method="get" action="{% url 'main_page:search' %}">
                   <input class="form-control me-2" name="search_data" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-success" type="submit">Search</button>
+                  <button class="details-btn" type="submit" style="height:35px;width:100px">Search</button>
                 </form>
             </div>
         </nav>

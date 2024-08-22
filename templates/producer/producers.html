@@ -8,16 +8,18 @@
 
 {% block body %}
     <section id="pizzas">
-        {% for producer in producers %}
-            <ul>
+        <ul>
+            <li><a href="{% url 'main_page:add_producer' %}"><button class="details-btn">Add Producer</button></a></li>
+            {% for producer in producers %}
+
                 <li>
                     <h3>{{ producer.producer_name }}</h3>
                     <img src="{{ producer.logo.url }}" alt="{{ producer.producer_name }}">
                     <p>Rating: {{ producer.rate }}</p>
                     <a href="{% url 'main_page:producer_detail' producer.pk %}"><button class="details-btn">Details</button></a>
                 </li>
-            </ul>
-        {% endfor %}
+            {% endfor %}
+        </ul>
         <section id="about">
             <h2>About Us</h2>
             <p>Delicious Pizza has been serving the community with mouth-watering pizzas for over 20 years. Our secret recipe has been passed down through generations.</p>

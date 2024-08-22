@@ -42,16 +42,16 @@ def add_burger(request):
     else:
         form = AddBurger()
 
-    return render(request, "burger/add_burger.html", {"form": form})
+    return render(request, "burger/burger_crud/add_burger.html", {"form": form})
 
 
 def delete_burger(request, pk):
     burger = get_object_or_404(Burger, pk=pk)
     if request.method == "POST":
         burger.delete()
-        messages.success(request, "The Burger deleted successfully")
+        messages.success(request, "The Burger deleted successfully!")
         return redirect("burger:burgers")
-    return render(request, "burger/delete_burger.html", {"burger": burger})
+    return render(request, "burger/burger_crud/delete_burger.html", {"burger": burger})
 
 
 def update_burger(request, pk):
@@ -61,6 +61,6 @@ def update_burger(request, pk):
         form = AddBurger(request.POST, request.FILES, instance=burger)
         if form.is_valid():
             form.save()
-            messages.success(request, "The Burger updated successfully")
+            messages.success(request, "The Burger updated successfully!")
             return redirect("burger:burgers")
-    return render(request, "burger/update_burger.html", {"form": form, "burger": burger})
+    return render(request, "burger/burger_crud/update_burger.html", {"form": form, "burger": burger})

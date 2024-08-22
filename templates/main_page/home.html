@@ -3,6 +3,7 @@
 {% block body %}
     <section id="pizzas">
         <h2>Our Menu</h2>
+        <a href="{% url 'main_page:add_pizza' %}"><button class="details-btn">Add Pizza</button></a>
         {% for pizza in pizzas %}
             <ul>
                 <li>

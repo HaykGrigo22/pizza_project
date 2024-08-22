@@ -21,8 +21,11 @@
 
         </li>
         <li>
-            <a href="{% url 'burger:delete_burger' burger.pk  %}"><button class="btn btn-success">Delete Burger</button></a>
-            <a href="{% url 'burger:update_burger' burger.pk  %}"><button class="btn btn-success">Update Burger</button></a>
+            <a href="{% url 'burger:delete_burger' burger.pk  %}"><button class="details-btn">Delete Burger</button></a>
+        </li>
+        <li>
+            <br>
+            <a href="{% url 'burger:update_burger' burger.pk  %}"><button class="details-btn">Update Burger</button></a>
         </li>
     </ul>
 

@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.forms import inlineformset_factory
 
+from burger.forms import AddBurger
 from burger.models import Burger
+from main_page.forms import AddPizza, AddProducer
 from main_page.models import Pizzas, Producers
 
 
@@ -40,7 +44,7 @@ def about(requests):
 
 def producers(request):
     all_producers = Producers.objects.all()
-    return render(request, "main_page/producers.html", {"producers": all_producers})
+    return render(request, "producer/producers.html", {"producers": all_producers})
 
 
 def producer_detail(request, pk):
@@ -48,7 +52,7 @@ def producer_detail(request, pk):
     all_pizzas = Pizzas.objects.filter(producer=producer)
     all_burgers = Burger.objects.filter(producer=producer)
     ctx = {"producer": producer, "pizzas": all_pizzas, "burgers": all_burgers}
-    return render(request, "main_page/producer_detail.html", ctx)
+    return render(request, "producer/producer_detail.html", ctx)
 
 
 def search(request):
@@ -105,3 +109,74 @@ def advanced_search(request):
         ctx = {"burgers": burgers}
 
     return render(request, "main_page/advanced_search.html", ctx)
+
+
+def add_pizza(request):
+    if request.method == "POST":
+        form = AddPizza(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, "Your Pizza added successfully!")
+                return redirect("main_page:home")
+            except:
+                form.add_error(None, "[ERROR] Something went wrong!!!")
+    else:
+        form = AddPizza()
+
+    return render(request, "main_page/pizza_crud/add_pizza.html", {"form": form})
+
+
+def delete_pizza(request, pk):
+    pizza = get_object_or_404(Pizzas, pk=pk)
+    if request.method == "POST":
+        pizza.delete()
+        messages.success(request, "The Pizza deleted successfully!")
+        return redirect("main_page:home")
+    return render(request, "main_page/pizza_crud/delete_pizza.html", {"pizza": pizza.title})
+
+
+def update_pizza(request, pk):
+    pizza = get_object_or_404(Pizzas, pk=pk)
+    form = AddPizza(instance=pizza)
+    if request.method == "POST":
+        form = AddPizza(request.POST, request.FILES, instance=pizza)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "The Pizza updated successfully!")
+            return redirect("main_page:home")
+    return render(request, "main_page/pizza_crud/update_pizza.html", {"form": form, "pizza": pizza})
+
+
+PizzaFormSet = inlineformset_factory(Producers, Pizzas, form=AddPizza, fields='__all__', extra=3)
+BurgerFormSet = inlineformset_factory(Producers, Burger, form=AddBurger, fields='__all__', extra=3)
+
+
+def add_producer(request):
+    if request.method == "POST":
+        producer_form = AddProducer(request.POST, request.FILES)
+        pizza_formset = PizzaFormSet(request.POST, request.FILES)
+        burger_formset = BurgerFormSet(request.POST, request.FILES)
+
+        if producer_form.is_valid() and pizza_formset.is_valid() and burger_formset.is_valid():
+            producer = producer_form.save()
+
+            pizzas = pizza_formset.save(commit=False)
+            for pizza in pizzas:
+                pizza.producer = producer
+                pizza.save()
+
+            burgers = burger_formset.save(commit=False)
+            for burger in burgers:
+                burger.producer = producer
+                burger.save()
+
+            messages.success(request, "The Producer created successfully!")
+            return redirect("main_page:producers")
+    else:
+        producer_form = AddProducer()
+        pizza_formset = PizzaFormSet()
+        burger_formset = BurgerFormSet()
+
+    return render(request, "producer/add_producer.html",
+                  {"producer_form": producer_form, "pizza_formset": pizza_formset, "burger_formset": burger_formset})

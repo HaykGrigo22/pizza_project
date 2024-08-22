@@ -1,21 +1,10 @@
-{% extends 'base.html' %}
-
-{% block page_title %}Update Burger {{ burger }}{% endblock %}
-
-{% block title %}Update Burger {{ burger }}{% endblock %}
-
-
-{% block body %}
-
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% for f in form %}
         <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
         <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
-    <button type="submit">Update</button>
+    <button class="details-btn" type="submit">Add</button>
 
 
 </form>
-
-{% endblock %}

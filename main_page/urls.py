@@ -10,5 +10,9 @@ urlpatterns = [
     path("producers/", views.producers, name="producers"),
     path("producer-info/<int:pk>/", views.producer_detail, name="producer_detail"),
     path("search/", views.search, name="search"),
-    path("advanced_search/", views.advanced_search, name="advanced_search"),
+    path("advanced-search/", views.advanced_search, name="advanced_search"),
+    path("add-pizza/", views.add_pizza, name="add_pizza"),
+    path("delete-pizza/<int:pk>/", views.delete_pizza, name="delete_pizza"),
+    path("update-pizza/<int:pk>/", views.update_pizza, name="update_pizza"),
+    path("add-producer", views.add_producer, name="add_producer"),
 ]

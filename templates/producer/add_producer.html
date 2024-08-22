@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}Add The Producer{% endblock %}
+
+{% block title %}Add The Producer{% endblock %}
+
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ producer_form|crispy }}
+
+    <h2>Pizzas</h2>
+    {{ pizza_formset.management_form }}
+        {% for pizza_form in pizza_formset %}
+            {{ pizza_form|crispy }}
+
+        {% endfor %}
+    <br>
+
+    <h2>Burgers</h2>
+    {{ burger_formset.management_form }}
+        {% for burger_form in burger_formset %}
+            {{ burger_form|crispy }}
+
+        {% endfor %}
+
+    <button type="submit">Add Producer</button>
+    <br><br>
+</form>
+
+{% endblock %}
