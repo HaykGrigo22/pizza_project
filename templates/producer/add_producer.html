@@ -24,10 +24,10 @@
 
     <h2>Burgers</h2>
     {{ burger_formset.management_form }}
-        {% for burger_form in burger_formset %}
-            {{ burger_form|crispy }}
+    {% for burger_form in burger_formset %}
+        {{ burger_form|crispy }}
 
-        {% endfor %}
+    {% endfor %}
 
     <button type="submit">Add Producer</button>
     <br><br>

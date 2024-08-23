@@ -6,7 +6,7 @@ from django.forms import inlineformset_factory
 
 from burger.forms import AddBurger
 from burger.models import Burger
-from main_page.forms import AddPizza, AddProducer
+from main_page.forms import AddPizza, AddProducer, PizzaFormSet, BurgerFormSet
 from main_page.models import Pizzas, Producers
 
 
@@ -146,10 +146,6 @@ def update_pizza(request, pk):
             messages.success(request, "The Pizza updated successfully!")
             return redirect("main_page:home")
     return render(request, "main_page/pizza_crud/update_pizza.html", {"form": form, "pizza": pizza})
-
-
-PizzaFormSet = inlineformset_factory(Producers, Pizzas, form=AddPizza, fields='__all__', extra=3)
-BurgerFormSet = inlineformset_factory(Producers, Burger, form=AddBurger, fields='__all__', extra=3)
 
 
 def add_producer(request):
