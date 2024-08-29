@@ -47,6 +47,5 @@ def logout_user(request):
 
 
 def user_profile(request):
-    name = request.user
-    profile = get_object_or_404(Profile, user=name)
+    profile = get_object_or_404(Profile, user=request.user)
     return render(request, "user/profile.html", {"profile": profile})
