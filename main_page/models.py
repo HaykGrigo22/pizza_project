@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -11,6 +12,7 @@ class Producers(models.Model):
     description = models.TextField()
     rate = models.CharField(max_length=155, choices=RateChoice.choices)
     logo = models.ImageField(upload_to=upload_producer_logo_image, null=True, blank=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse("producer", kwargs={"pk": self.pk})

@@ -1,10 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.core.paginator import Paginator
-from django.forms import inlineformset_factory
 
-from burger.forms import AddBurger
 from burger.models import Burger
 from main_page.forms import AddPizza, AddProducer, PizzaFormSet, BurgerFormSet
 from main_page.models import Pizzas, Producers
@@ -111,6 +110,7 @@ def advanced_search(request):
     return render(request, "main_page/advanced_search.html", ctx)
 
 
+@login_required
 def add_pizza(request):
     if request.method == "POST":
         form = AddPizza(request.POST, request.FILES)
@@ -127,6 +127,7 @@ def add_pizza(request):
     return render(request, "main_page/pizza_crud/add_pizza.html", {"form": form})
 
 
+@login_required
 def delete_pizza(request, pk):
     pizza = get_object_or_404(Pizzas, pk=pk)
     if request.method == "POST":
@@ -136,6 +137,7 @@ def delete_pizza(request, pk):
     return render(request, "main_page/pizza_crud/delete_pizza.html", {"pizza": pizza.title})
 
 
+@login_required
 def update_pizza(request, pk):
     pizza = get_object_or_404(Pizzas, pk=pk)
     form = AddPizza(instance=pizza)
@@ -148,6 +150,7 @@ def update_pizza(request, pk):
     return render(request, "main_page/pizza_crud/update_pizza.html", {"form": form, "pizza": pizza})
 
 
+@login_required
 def add_producer(request):
     if request.method == "POST":
         producer_form = AddProducer(request.POST, request.FILES)
@@ -155,7 +158,9 @@ def add_producer(request):
         burger_formset = BurgerFormSet(request.POST, request.FILES)
 
         if producer_form.is_valid() and pizza_formset.is_valid() and burger_formset.is_valid():
-            producer = producer_form.save()
+            producer = producer_form.save(commit=False)
+            producer.creator = request.user
+            producer.save()
 
             pizzas = pizza_formset.save(commit=False)
             for pizza in pizzas:

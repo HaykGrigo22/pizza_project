@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
@@ -29,6 +30,7 @@ def burger_detail(request, pk):
     return render(request, "burger/burger_detail.html", ctx)
 
 
+@login_required
 def add_burger(request):
     if request.method == "POST":
         form = AddBurger(request.POST, request.FILES)
@@ -45,6 +47,7 @@ def add_burger(request):
     return render(request, "burger/burger_crud/add_burger.html", {"form": form})
 
 
+@login_required
 def delete_burger(request, pk):
     burger = get_object_or_404(Burger, pk=pk)
     if request.method == "POST":
@@ -54,6 +57,7 @@ def delete_burger(request, pk):
     return render(request, "burger/burger_crud/delete_burger.html", {"burger": burger})
 
 
+@login_required
 def update_burger(request, pk):
     burger = get_object_or_404(Burger, pk=pk)
     form = AddBurger(instance=burger)

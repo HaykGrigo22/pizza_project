@@ -18,13 +18,15 @@
             <h4>Description: {{ pizza.description }}</h4>
 
         </li>
-        <li>
-            <a href="{% url 'main_page:delete_pizza' pizza.pk  %}"><button class="details-btn">Delete Pizza</button></a>
-        </li>
-        <li>
-            <br>
-            <a href="{% url 'main_page:update_pizza' pizza.pk  %}"><button class="details-btn">Update Pizza</button></a>
-        </li>
+        {% if pizza.producer.creator == request.user %}
+            <li>
+                <a href="{% url 'main_page:delete_pizza' pizza.pk  %}"><button class="details-btn">Delete Pizza</button></a>
+            </li>
+            <li>
+                <br>
+                <a href="{% url 'main_page:update_pizza' pizza.pk  %}"><button class="details-btn">Update Pizza</button></a>
+            </li>
+        {% endif %}
     </ul>
 
     <ul>

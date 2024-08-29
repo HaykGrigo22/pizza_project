@@ -21,6 +21,16 @@
                 <li><a href="{% url 'main_page:producers' %}">Producers</a></li>
                 <li><a href="{% url 'main_page:advanced_search' %}">Advanced Search</a></li>
                 <li><a href="{% url 'main_page:about' %}">About Us</a></li>
+                {% if not request.user.is_authenticated %}
+                    <li><br><br></li>
+                    <li><a href="{% url 'users:login' %}">Login</a></li>
+                    <li><a href="{% url 'users:registration' %}">Registration</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:user_profile' %}">My Profile</a></li>
+                    <li><br><br></li>
+                    <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                {% endif %}
+
             </ul>
             <div class="search-bars">
                 <form class="d-flex mt-3" role="search" method="get" action="{% url 'main_page:search' %}">

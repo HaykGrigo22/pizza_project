@@ -1,9 +1,10 @@
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% for f in form %}
-        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
-        <div class="form-error">{{ f.errors }}</div>
-    {% endfor %}
+    {{ form|crispy }}
     <button class="details-btn" type="submit">Update</button>
 
 
