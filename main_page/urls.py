@@ -15,4 +15,6 @@ urlpatterns = [
     path("delete-pizza/<int:pk>/", views.delete_pizza, name="delete_pizza"),
     path("update-pizza/<int:pk>/", views.update_pizza, name="update_pizza"),
     path("add-producer", views.add_producer, name="add_producer"),
+    path("basket-add/<int:product_id>/", views.basket_add, name="basket_add"),
+    path("wish-list-add/<int:product_id>/", views.wish_list_add, name="wish_list_add"),
 ]

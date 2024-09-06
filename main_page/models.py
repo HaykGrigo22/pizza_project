@@ -40,3 +40,22 @@ class Pizzas(models.Model):
     class Meta:
         verbose_name = "Pizza"
         verbose_name_plural = "Pizzas"
+
+
+class Basket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Pizzas, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Basket for {self.user.username} | Product {self.product.title}"
+
+
+class WishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Pizzas, on_delete=models.CASCADE)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.product.title}"

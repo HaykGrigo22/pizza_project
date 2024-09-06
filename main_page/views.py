@@ -1,12 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.core.paginator import Paginator
 
 from burger.models import Burger
 from main_page.forms import AddPizza, AddProducer, PizzaFormSet, BurgerFormSet
-from main_page.models import Pizzas, Producers
+from main_page.models import Pizzas, Producers, Basket, WishList
+from pizza import settings
 
 
 def home(request):
@@ -56,13 +58,15 @@ def producer_detail(request, pk):
 
 def search(request):
     search_data = request.GET.get("search_data")
-    if search_data:
-        pizzas = Pizzas.objects.filter(
-            Q(title__icontains=search_data) | Q(description__icontains=search_data)
-        )
-        ctx = {"pizzas": pizzas, "search": search_data}
+
+    pizzas = Pizzas.objects.filter(title__icontains=search_data)
+    burgers = Burger.objects.filter(title__icontains=search_data)
+
+    if pizzas or burgers:
+        ctx = {"pizzas": pizzas, "burgers": burgers, "search": search_data}
+
     else:
-        ctx = {"pizzas": Pizzas.objects.all()}
+        ctx = {"pizzas": Pizzas.objects.all(), "burgers": Burger.objects.all(), "search": search_data, "not_found": True}
 
     return render(request, "main_page/search.html", ctx)
 
@@ -181,3 +185,47 @@ def add_producer(request):
 
     return render(request, "producer/add_producer.html",
                   {"producer_form": producer_form, "pizza_formset": pizza_formset, "burger_formset": burger_formset})
+
+
+def basket_add(request, product_id):
+    product = Pizzas.objects.get(id=product_id)
+    current_page = request.META.get("HTTP_REFERER")
+
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user, product=product)
+
+        if not basket.exists():
+            Basket.objects.create(user=request.user, product=product, quantity=1)
+
+        else:
+            basket = basket.first()
+            basket.quantity += 1
+            basket.save()
+
+    else:
+        basket = request.session.get('basket', {})
+
+        if str(product_id) in basket:
+            basket[str(product_id)]["quantity"] += 1
+        else:
+            basket[str(product_id)] = {"id": product.id, "product_title": product.title, "quantity": 1,
+                                       "price": product.price,
+                                       "image": product.image.url}
+        print(basket)
+        print(type(basket))
+
+        request.session['basket'] = basket
+
+    return HttpResponseRedirect(current_page)
+
+
+def wish_list_add(request, product_id):
+    product = Pizzas.objects.get(id=product_id)
+    wish_list = WishList.objects.filter(user=request.user, product=product)
+
+    if not wish_list.exists():
+        WishList.objects.create(user=request.user, product=product)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+

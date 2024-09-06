@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}My Wish List{% endblock %}
+
+{% block title %}My Wish List{% endblock %}
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'user/basket.css' %}">
+
+
+    {% if wish_list %}
+        <section id="pizzas">
+            {% for product in wish_list %}
+                <ul>
+                    <li>
+                        <h3>{{ product.product.title }}</h3>
+                        <img src="{{ product.product.image.url }}" alt="{{ product.title }}">
+                        <p>Producer: {{ product.product.producer }}</p>
+                        <p>Rating: {{ product.product.rate }}</p>
+                        <p>Price: ${{ product.product.price }}</p>
+                        <a href="{% url 'main_page:pizza_detail' product.product.id %}"><button class="details-btn">Details</button></a>
+                    </li>
+                </ul>
+            {% endfor %}
+        </section>
+
+    {% else %}
+        <h1>Empty Wish List</h1>
+
+    {% endif %}
+
+{% endblock %}

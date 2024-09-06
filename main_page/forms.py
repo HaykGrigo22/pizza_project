@@ -28,4 +28,3 @@ class AddProducer(forms.ModelForm):
 
 PizzaFormSet = inlineformset_factory(Producers, Pizzas, form=AddPizza, fields='__all__', extra=1)
 BurgerFormSet = inlineformset_factory(Producers, Burger, form=AddBurger, fields='__all__', extra=1)
-

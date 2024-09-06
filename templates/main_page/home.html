@@ -3,7 +3,6 @@
 {% block body %}
     <section id="pizzas">
         <h2>Our Menu</h2>
-        <a href="{% url 'main_page:add_pizza' %}"><button class="details-btn">Add Pizza</button></a>
         {% for pizza in pizzas %}
             <ul>
                 <li>
@@ -14,6 +13,8 @@
                     <p>Thickness: {{ pizza.thick_type}}</p>
                     <p>Rating: {{ pizza.rate }}</p>
                     <a href="{% url 'main_page:pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                    <a href="{% url 'main_page:basket_add' pizza.id %}"><button class="details-btn">Add to Basket</button></a>
+                    <a href="{% url 'main_page:wish_list_add' pizza.id %}"><button class="details-btn">Add to Wish List</button></a>
                 </li>
             </ul>
         {% endfor %}

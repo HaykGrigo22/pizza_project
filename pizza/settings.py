@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'main_page.apps.MainPageConfig',
     'burger.apps.BurgerConfig',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +149,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 LOGIN_REDIRECT_URL = "main_page:home"
 
 LOGIN_URL = "users:login"
+
+
+CART_SESSION_ID = 'cart'

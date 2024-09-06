@@ -5,7 +5,6 @@
 
 {% block title %}Add The Producer{% endblock %}
 
-
 {% block body %}
 
 <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
@@ -14,22 +13,25 @@
     {% csrf_token %}
     {{ producer_form|crispy }}
 
-    <h2>Pizzas</h2>
-    {{ pizza_formset.management_form }}
-        {% for pizza_form in pizza_formset %}
-            {{ pizza_form|crispy }}
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Pizzas</h2>
+            {{ pizza_formset.management_form }}
+            {% for pizza_form in pizza_formset %}
+                {{ pizza_form|crispy }}
+            {% endfor %}
+        </div>
 
-        {% endfor %}
-    <br>
+        <div class="col-md-6">
+            <h2>Burgers</h2>
+            {{ burger_formset.management_form }}
+            {% for burger_form in burger_formset %}
+                {{ burger_form|crispy }}
+            {% endfor %}
+        </div>
+    </div>
 
-    <h2>Burgers</h2>
-    {{ burger_formset.management_form }}
-    {% for burger_form in burger_formset %}
-        {{ burger_form|crispy }}
-
-    {% endfor %}
-
-    <button type="submit">Add Producer</button>
+    <button class="details-btn" type="submit">Add Producer</button>
     <br><br>
 </form>
 

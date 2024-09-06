@@ -12,4 +12,4 @@ def upload_producer_logo_image(instance, filename):
 
 
 def upload_user_image(instance, filename):
-    return f"user-image-{instance.title}-{filename}"
+    return f"user-image{filename}"

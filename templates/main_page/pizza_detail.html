@@ -16,6 +16,8 @@
             <h4>Thickness: {{ pizza.thick_type }}</h4>
             <h4>Rating: {{ pizza.rate }}</h4>
             <h4>Description: {{ pizza.description }}</h4>
+            <a href="{% url 'main_page:basket_add' pizza.id %}"><button class="details-btn">Add to Basket</button></a>
+            <a href="{% url 'main_page:wish_list_add' pizza.id %}"><button class="details-btn">Add to Wish List</button></a>
 
         </li>
         {% if pizza.producer.creator == request.user %}
@@ -46,6 +48,7 @@
                 <h4>Thickness: {{ similar_pizza.thick_type }}</h4>
                 <h4>Rating: {{ similar_pizza.rate }}</h4>
                 <a href="{% url 'main_page:pizza_detail' similar_pizza.pk %}"><button class="details-btn">Details</button></a>
+                <a href="{% url 'main_page:basket_add' pizza.id %}"><button class="details-btn">Add to Basket</button></a>
 
             {% endfor %}
         </li>

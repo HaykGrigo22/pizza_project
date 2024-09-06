@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}My Basket{% endblock %}
+
+{% block title %}My Basket{% endblock %}
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'user/basket.css' %}">
+
+
+    {% if baskets %}
+        <div class="total-sum">
+            <h2>Total Price: ${{ total_sum }}</h2>
+        </div>
+
+        <section id="pizzas">
+        {% if request.user.is_authenticated %}
+
+                {% for basket in baskets %}
+                    <ul>
+                        <li>
+                            <h3>{{ basket.product.title }}</h3>
+                            <img src="{{ basket.product.image.url }}" alt="{{ pizza.title }}">
+                            <p>Producer: {{ basket.product.producer }}</p>
+                            <p>Rating: {{ basket.product.rate }}</p>
+                            <p>Price: ${{ basket.product.price }}</p>
+                            <div class="quantity-container">
+                                <p>Quantity: {{ basket.quantity }}</p>
+                                <div class="arrow-buttons">
+                                    <a href="{% url 'users:arrow_up' basket.product.id %}"><button class="arrow-up">▲</button></a>
+                                    <a href="{% url 'users:arrow_down' basket.product.id %}"><button class="arrow-down">▼</button></a>
+                                </div>
+                            </div>
+                            <a href="{% url 'main_page:pizza_detail' basket.product.id %}"><button class="details-btn">Details</button></a>
+                            <a href="{% url 'users:basket_delete' basket.product.id %}"><button class="details-btn">Delete from Basket</button></a>
+                        </li>
+                    </ul>
+                {% endfor %}
+
+        {% else %}
+            {% for item in baskets.values %}
+                    <ul>
+                        <li>
+                            <h3>{{ item.product_title }}</h3>
+                            <img src="{{ item.image }}" alt="{{ pizza.title }}">
+                            <p>Price: ${{ item.price }}</p>
+                            <div class="quantity-container">
+                                <p>Quantity: {{ item.quantity }}</p>
+                                <div class="arrow-buttons">
+                                    <a href="{% url 'users:arrow_up' item.id %}"><button class="arrow-up">▲</button></a>
+                                    <a href="{% url 'users:arrow_down' item.id %}"><button class="arrow-down">▼</button></a>
+                                </div>
+                            </div>
+                            <a href="{% url 'main_page:pizza_detail' item.id %}"><button class="details-btn">Details</button></a>
+                            <a href="{% url 'users:basket_delete' item.id %}"><button class="details-btn">Delete from Basket</button></a>
+
+                        </li>
+                    </ul>
+                {% endfor %}
+        {% endif %}
+        </section>
+
+    {% else %}
+        <h1>Empty Basket</h1>
+
+    {% endif %}
+
+{% endblock %}

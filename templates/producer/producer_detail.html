@@ -28,6 +28,12 @@
         <a href="?product_type=pizza"><button class="product-btn">Pizza ({{ pizzas.count }})</button></a>
         <a href="?product_type=burger"><button class="product-btn">Burger ({{ burgers.count }})</button></a>
     </div>
+    {% if producer.creator == request.user %}
+        <div class="product-buttons">
+            <a href="{% url 'main_page:add_pizza' %}"><button class="details-btn">Add Pizza</button></a>
+            <a href="{% url 'burger:add_burger' %}"><button class="details-btn">Add Burger</button></a>
+        </div>
+    {% endif %}
 
     <ul>
         <li>

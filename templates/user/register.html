@@ -13,7 +13,7 @@
 
   <div class="login-container">
       <h2>Register</h2>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{ form|crispy }}
 

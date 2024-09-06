@@ -3,6 +3,11 @@
 {% block body %}
     <section id="pizzas">
         <h2>Your Search: ' {{ search }} '</h2>
+        {% if not_found %}
+            <ul>
+                <li><h3>Nothing  Found</h3></li>
+            </ul>
+        {% endif %}
         {% for pizza in pizzas %}
             <ul>
                 <li>
@@ -13,6 +18,19 @@
                     <p>Thickness: {{ pizza.thick_type}}</p>
                     <p>Rating: {{ pizza.rate }}</p>
                     <a href="{% url 'main_page:pizza_detail' pizza.pk %}"><button class="details-btn">Details</button></a>
+                </li>
+            </ul>
+        {% endfor %}
+        {% for burger in burgers %}
+            <ul>
+                <li>
+                    <h3>{{ burger.title }}</h3>
+                    <img src="{{ burger.image.url }}" alt="{{ burger.title }}">
+                    <p>Price: ${{ burger.price }}</p>
+                    <p>Producer: {{ burger.producer }}</p>
+                    <p>Thickness: {{ burger.thick_type}}</p>
+                    <p>Rating: {{ burger.rate }}</p>
+                    <a href="{% url 'burger:burger_detail' burger.pk %}"><button class="details-btn">Details</button></a>
                 </li>
             </ul>
         {% endfor %}
