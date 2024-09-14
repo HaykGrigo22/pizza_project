@@ -17,4 +17,5 @@ urlpatterns = [
     path("add-producer", views.add_producer, name="add_producer"),
     path("basket-add/<int:product_id>/", views.basket_add, name="basket_add"),
     path("wish-list-add/<int:product_id>/", views.wish_list_add, name="wish_list_add"),
+    path("api/all-pizzas")
 ]

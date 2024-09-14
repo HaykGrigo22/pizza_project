@@ -1,0 +1,16 @@
+#header {
+ background: #af2c18;
+}
+div.breadcrumbs {
+    background: #af2c18;
+}
+.module h2, .module caption, .inline-group h2 {
+    background: #e5533c;
+}
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: #e5533c;
+}
+html[data-theme="light"], :root {
+    --button-bg: #e5533c;
+    --button-hover-bg: #af2c18;
+}
